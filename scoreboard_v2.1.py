@@ -9,7 +9,6 @@ shotclock.tenths=0
 shotclock.clockState=False
 scoreboard.config(bg='black')
 scoreboard.grid()
-shotclock.clockSwitch=False
 scoreboard.title('Main Scoreboard')
 timeLabel=Label(scoreboard, text='  0.0  ', bg="black", foreground='yellow')
 timeLabel.grid(column=325,row=0,sticky='N')
