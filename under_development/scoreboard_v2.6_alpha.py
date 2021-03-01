@@ -3,8 +3,8 @@ import pygame
 from tk_tools import *
 import time
 from tkinter import messagebox
-import requests #import module - install with pip "pip install requests"- this is my favorite library
-scoreboard=Tk()
+import requests 
+scoreboard=Tk() #scoreboard/shotclock UI
 shotclock=Tk()
 shotclock.seconds=0
 shotclock.tenths=0
@@ -13,22 +13,22 @@ scoreboard.config(bg='black')
 scoreboard.grid()
 shotclock.clockSwitch=False
 scoreboard.title('Main Scoreboard')
-minuteLabel=SevenSegmentDigits(scoreboard, digits=2, background='black', digit_color='yellow', height=100)
+minuteLabel=SevenSegmentDigits(scoreboard, digits=2, background='black', digit_color='yellow', height=100)  #main clock area
 minuteLabel.grid(column=3,row=1)
 timecolon=Label(scoreboard, text=':', fg='white', bg='black', font=('Century Gothic', 75))
 timecolon.grid(column=4, row=1)
 secondLabel=SevenSegmentDigits(scoreboard, digits=2, background='black', digit_color='yellow', height=100)
 secondLabel.grid(column=5, row=1)
-homeScoreLabel=SevenSegmentDigits(scoreboard, digits=3, background='black', digit_color='red', height=100)
+homeScoreLabel=SevenSegmentDigits(scoreboard, digits=3, background='black', digit_color='red', height=100) #home score
 homeScoreLabel.grid(column=1, row=3)
-guestScoreLabel=SevenSegmentDigits(scoreboard, digits=3, background='black', digit_color='red', height=100)
+guestScoreLabel=SevenSegmentDigits(scoreboard, digits=3, background='black', digit_color='red', height=100) #guest score
 guestScoreLabel.grid(column=7,row=3)
 homeNameLabel=Label(scoreboard, text="HOME", bg='black', foreground='orange')
 homeNameLabel.grid(column=1,row=2)
 shotclock.config(bg='black')
-homePossLabel=Label(scoreboard, text="← POSS", bg='black', foreground='#001900')
+homePossLabel=Label(scoreboard, text="← POSS", bg='black', foreground='#001900') #poss. arrow
 homePossLabel.place(x=0, y=0)
-homeBonusLabel=Label(scoreboard, text="← BONUS", bg='black', foreground='#190000')
+homeBonusLabel=Label(scoreboard, text="← BONUS", bg='black', foreground='#190000') #bonus arrow
 homeBonusLabel.place(x=0, y=50)
 guestNameLabel=Label(scoreboard, text="GUEST", bg='black', foreground='orange')
 guestNameLabel.grid(column=7, row=2)
@@ -41,7 +41,7 @@ guestPossLabel.config(font=('Segoe UI', 25))
 homeBonusLabel.config(font=('Segoe UI', 25))
 guestBonusLabel.config(font=('Segoe UI', 25))
 scoreboard.autoHorn=True
-periodLabel=SevenSegmentDigits(scoreboard, digits=1, background='black', digit_color='yellow')
+periodLabel=SevenSegmentDigits(scoreboard, digits=1, background='black', digit_color='yellow') #period
 periodLabel.grid(column=4, row=3)
 periodNameLabel=Label(scoreboard, text='PERIOD', font=('Century Gothic', 25), bg='black', foreground='white')
 periodNameLabel.grid(column=4, row=2)
@@ -53,17 +53,17 @@ guestFoulsNameLabel=Label(scoreboard, text='FOULS', bg='black', foreground='whit
 guestFoulsNameLabel.grid(column=7, row=4)
 guestFoulsLabel=SevenSegmentDigits(scoreboard, digits=2, background='black', digit_color='red', height=100)
 guestFoulsLabel.grid(column=7,row=5)
-mainminuteLabel=SevenSegmentDigits(shotclock, digits=2, background='black', digit_color='yellow', height=100)
+mainminuteLabel=SevenSegmentDigits(shotclock, digits=2, background='black', digit_color='yellow', height=100) #main clock area (shot clock display)
 mainminuteLabel.grid(column=1,row=1)
 maintimecolon=Label(shotclock, text=':', fg='white', bg='black', font=('Century Gothic', 75))
 maintimecolon.grid(column=2, row=1)
 mainsecondLabel=SevenSegmentDigits(shotclock, digits=2, background='black', digit_color='yellow', height=100)
 mainsecondLabel.grid(column=3,row=1)
 shotclock.title('Shot Clock')
-shotTimeLabel=SevenSegmentDigits(shotclock, digits=2, background='black', digit_color='red', height=200)
+shotTimeLabel=SevenSegmentDigits(shotclock, digits=2, background='black', digit_color='red', height=200) #shot clock digits
 playerLabel=SevenSegmentDigits(scoreboard, digits=2, background='black', digit_color='yellow', height=100)
 playerLabel.place(x=230, y=320)
-playerNameLabel=Label(scoreboard, text='PLAYER    FOUL', bg='black', fg='white', font=('Century Gothic', 25))
+playerNameLabel=Label(scoreboard, text='PLAYER    FOUL', bg='black', fg='white', font=('Century Gothic', 25)) #player fouls
 playerNameLabel.place(x=230, y=270)
 foulLabel=SevenSegmentDigits(scoreboard, digits=1, background='black', digit_color='yellow', height=100)
 foulLabel.place(x=390, y=320)
@@ -71,7 +71,7 @@ homeTolNameLabel=Label(scoreboard, text='TOL', bg='black', fg='white', font=('Ce
 homeTolNameLabel.grid(column=2, row=4)
 guestTolNameLabel=Label(scoreboard, text='TOL', bg='black', fg='white', font=('Century Gothic', 15))
 guestTolNameLabel.grid(column=6, row=4)
-homeTolLabel=SevenSegmentDigits(scoreboard, digits=1, background='black', digit_color='yellow', height=50)
+homeTolLabel=SevenSegmentDigits(scoreboard, digits=1, background='black', digit_color='yellow', height=50) #T.O.L.
 homeTolLabel.grid(column=2, row=5)
 guestTolLabel=SevenSegmentDigits(scoreboard, digits=1, background='black', digit_color='yellow', height=50)
 guestTolLabel.grid(column=6,row=5)
@@ -138,18 +138,18 @@ homeTolLabel.set_value('5')
 guestTolLabel.set_value('5')
 mainminuteLabel.set_value('00')
 mainsecondLabel.set_value('0')
-def buzzer():
+def buzzer(): #sounds buzzer
     sound=pygame.mixer.Sound('Buzzer.wav')
     channel.play(sound)
-def horn():
+def horn(): #sounds horn
     sound=pygame.mixer.Sound('Horn.wav')
     channel.play(sound)
-def start_buzzer_loop(c):
+def start_buzzer_loop(c): #starts buzzer
     sound=pygame.mixer.Sound('BuzzerLoop.wav')
     channel.play(sound, -1)
-def stop_buzzer_loop(c):
+def stop_buzzer_loop(c): #stops buzzer
     channel.stop()
-def reset_1():
+def reset_1(): #Resets shotclock
     if shotclock.enabled and (not controlpanel.settingReset1):
         shotclock.seconds=shotclock.reset1
         shotclock.tenths=9
@@ -165,7 +165,7 @@ def reset_1():
     else:
             shotTimeLabel.set_value('')
     shotclock.update()
-def reset_2():
+def reset_2(): #Resets shotclock
     if shotclock.enabled and (not controlpanel.settingReset2):
         shotclock.seconds=shotclock.reset2
         shotclock.tenths=9
@@ -181,7 +181,7 @@ def reset_2():
     else:
         shotTimeLabel.set_value('')
     shotclock.update()
-def doSomething():
+def doSomething(): #exits program
     if not scoreboard.clockState:
         shotclock.destroy()
         controlpanel.destroy()
@@ -193,7 +193,7 @@ shotclock.protocol('WM_DELETE_WINDOW', doSomething)
 controlpanel.protocol('WM_DELETE_WINDOW', doSomething)
 setcontrolpanel.protocol('WM_DELETE_WINDOW', doSomething)
 shotclockcontrolpanel.protocol('WM_DELETE_WINDOW', doSomething)
-def start_time():
+def start_time(): #runs clock
         if scoreboard.clockState:
             if scoreboard.tenths<=0:
                 scoreboard.seconds-=1
@@ -298,7 +298,7 @@ def start_time():
                     scoreboard.after(66, start_time)
                 else:
                     scoreboard.after(70, start_time)
-def increase_home_score_by_1():
+def increase_home_score_by_1(): #increases home score
         scoreboard.homeScore+=1
         if scoreboard.homeScore>199:
             scoreboard.homeScore=199
@@ -345,7 +345,7 @@ def decrease_home_score():
         else:
             homeLabel.config(text=str(scoreboard.homeScore))
         scoreboard.update()
-def increase_guest_score_by_1():
+def increase_guest_score_by_1(): #increases guest score
         scoreboard.guestScore+=1
         if scoreboard.guestScore>199:
             scoreboard.guestScore=199
@@ -393,7 +393,7 @@ def decrease_guest_score():
             guestLabel.config(text=str(scoreboard.guestScore))
         scoreboard.update()
 
-def decrease_period():
+def decrease_period(): #changes period
     scoreboard.period-=1
     if scoreboard.period<1:
         scoreboard.period=9
@@ -427,7 +427,7 @@ controlpanel.settingGuestScore=False
 controlpanel.settingPlayerFouls=False
 controlpanel.settingGuestFouls=False
 controlpanel.settingShotClock=False
-def set_time():
+def set_time #sets main clock
         if controlpanel.settingTime==False and (not scoreboard.clockState):
             minuteEntry.config(state=NORMAL)
             secondEntry.config(state=NORMAL)
@@ -502,14 +502,14 @@ def set_time():
         controlpanel.update()
         shotclock.update()
 
-def start_stop():
+def start_stop(): #start/stop main clock
         if (not scoreboard.clockState) and (scoreboard.minutes>0 or scoreboard.seconds>0) and controlpanel.settingTime==False:
             scoreboard.clockState=True
             start_time()
         else:
             scoreboard.clockState=False
 
-def reset():
+def reset(): #resets main clock
         if (not scoreboard.clockState) and (not controlpanel.settingTime):
             scoreboard.minutes=int(minuteEntry.get())
             scoreboard.seconds=int(secondEntry.get())
@@ -569,7 +569,7 @@ def reset():
         shotclock.update()
         controlpanel.update()
         
-def shot_run_stop(v):
+def shot_run_stop(v): #start/stop shot clock
     if int(v)==1:
         if (shotclock.seconds>0 or shotclock.tenths>0) and (scoreboard.minutes>0 or scoreboard.seconds>shotclock.seconds):
             shotclock.clockState=True
@@ -577,7 +577,7 @@ def shot_run_stop(v):
             runButton.set(0)
     else:
         shotclock.clockState=False
-def toggle_fast():
+def toggle_fast(): #toggles fast mode
     if not scoreboard.clockState:
         if not scoreboard.fast:
             scoreboard.fast=True
@@ -585,7 +585,7 @@ def toggle_fast():
         else:
             scoreboard.fast=False
             fastButton.config(text='Fast Mode: OFF')
-def change_poss_to_home():
+def change_poss_to_home(): #changes possession
     if scoreboard.poss==1:
         scoreboard.poss=0
     else:
@@ -613,7 +613,7 @@ def change_poss_to_guest():
     else:
         homePossLabel.config(foreground='#001900')
         guestPossLabel.config(foreground='#001900')
-def toggle_home_bonus():
+def toggle_home_bonus(): #toggles bonus lights
     if not scoreboard.homeBonus:
         scoreboard.homeBonus=True
     else:
@@ -633,7 +633,7 @@ def toggle_guest_bonus():
     else:
         guestBonusLabel.config(foreground='#190000')
 
-def increase_home_fouls():
+def increase_home_fouls(): #changes fouls
     if scoreboard.homeFouls<19:
         scoreboard.homeFouls+=1
     homeFoulsLabel.set_value(str(scoreboard.homeFouls))
@@ -665,14 +665,14 @@ def remove_guest_fouls():
         fouls2Label.config(text='  '+str(scoreboard.guestFouls))
     else:
         fouls2Label.config(text=str(scoreboard.guestFouls))
-def auto_stop_clock():
+def auto_stop_clock(): #automatically stops main clock when shot clock expires. This setting can be changed by the user.
     if not scoreboard.autoStopClock:
         scoreboard.autoStopClock=True
         autoStopClockButton.config(text='Stop main clock when shot clock expires: ON')
     else:
         scoreboard.autoStopClock=False
         autoStopClockButton.config(text='Stop main clock when shot clock expires: OFF')
-def set_home_name():
+def set_home_name(): #changes team names
     if not controlpanel.settingHomeName:
         homeChangeNameButton.config(text='Confirm Name')
         controlpanel.settingHomeName=True
@@ -706,7 +706,7 @@ def set_guest_name():
             guestNameEntry.config(state=DISABLED)
         else:
             messagebox.showinfo('Cannot Set Name', 'The name you entered must be 8 letters or less.', icon='error', parent=controlpanel)
-def toggle_shot_clock():
+def toggle_shot_clock(): #turns on/off shot clock
     if not shotclock.enabled:
         shotclock.enabled=True
         shotResetButton1.config(state=NORMAL)
@@ -745,7 +745,7 @@ def toggle_shot_clock():
         autoStopClockButton.config(text='Stop main clock when shot clock expires: OFF')
         autoStopClockButton.config(state=DISABLED)
         setShotClockButton.config(state=DISABLED)
-def set_reset_1():
+def set_reset_1(): #changes shotclock reset values
     if not controlpanel.settingReset1:
         controlpanel.settingReset1=True
         reset1Entry.config(state=NORMAL)
@@ -786,7 +786,7 @@ def set_reset_2():
                 setErrorLabel.config(text='Error: Value(s) are invalid.')
         except:
             setErrorLabel.config(text='Error: Value(s) are invalid.')
-def set_home_score():
+def set_home_score(): #sets scores
     setErrorLabel.config(text='')
     if not controlpanel.settingHomeScore:
         homeScoreEntry.config(state=NORMAL)
@@ -840,7 +840,7 @@ def set_guest_score():
                 setErrorLabel.config(text='Error: Value(s) are invalid')
         except ValueError:
             setErrorLabel.config(text='Error: Value(s) are invalid')
-def set_home_fouls():
+def set_home_fouls(): #sets fouls
     setErrorLabel.config(text='')
     if not controlpanel.settingHomeFouls:
         homeFoulsEntry.config(state=NORMAL)
@@ -889,7 +889,7 @@ def set_guest_fouls():
                 setErrorLabel.config(text='Error: Value(s) are invalid')
         except ValueError:
             setErrorLabel.config(text='Error: Value(s) are invalid')
-def set_shot_clock():
+def set_shot_clock(): #sets shotclock
     setErrorLabel.config(text='')
     if (not shotclock.clockState) and (not controlpanel.settingShotClock):
         shotClockEntry.config(state=NORMAL)
@@ -947,7 +947,7 @@ def set_player_fouls():
                     setErrorLabel.config(text='Error: Value(s) are invalid')
             except ValueError:
                 setErrorLabel.config(text='Error: Value(s) are invalid')
-def add_home_tol():
+def add_home_tol(): #changes T.O.L. for each team
     if scoreboard.homeTol<9:
         scoreboard.homeTol+=1
     homeTolLabel.set_value(str(scoreboard.homeTol))
@@ -967,7 +967,7 @@ def remove_guest_tol():
         scoreboard.guestTol-=1
     guestTolLabel.set_value(str(scoreboard.guestTol))
     tol2Label.config(text=str(scoreboard.guestTol))
-controlpanel.grid()
+controlpanel.grid() #control panel UI
 setErrorLabel=Label(setcontrolpanel, text='', foreground='red')
 setErrorLabel.pack()
 clockLabel=Label(controlpanel, text='00.0  ', bg='black', foreground='orange')   
