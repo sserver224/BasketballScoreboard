@@ -1110,12 +1110,12 @@ connectLabel=Label(controlpanel, text='')
 connectLabel.grid(column=1, row=13)
 def get_last():
   return eval(requests.get('https://clouddata.scratch.mit.edu/logs?projectid=491787761&limit=1000000000&offset=0').text)[0]['value']
-def remote():
+def remote():    #this causes the program to be unbearably slow
     try:
         controlpanel.update()
-        connectLabel.config(text='Connected', fg='#00ff00')
+        connectLabel.config(text='Connected', fg='#00ff00') #shows that it's connected
         if get_last()==1:
-            increase_home_score_by_1()
+            increase_home_score_by_1()       #responds to certain commands
         elif get_last()==2:
             increase_home_score_by_2()
         elif get_last()==3:
@@ -1157,7 +1157,7 @@ def remote():
         elif get_last()==21:
             increase_period()
     except:
-        connectLabel.config(text='Disconnected', fg='red')
-    setcontrolpanel.after(1, remote)
+        connectLabel.config(text='Disconnected', fg='red') #shows that it's not connected
+    setcontrolpanel.after(1, remote) #repeats the function after 1 ms
         
 remote()
