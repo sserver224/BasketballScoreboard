@@ -1154,7 +1154,7 @@ def remote():
             remove_home_tol()
         elif get_last()==20:
             remove_guest_tol()
-        elif get_last==21:
+        elif get_last()==21:
             increase_period()
     except:
         connectLabel.config(text='Disconnected', fg='red')
