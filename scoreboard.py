@@ -1,8 +1,10 @@
 from tkinter import *
-from tkinter.ttk import *
+from customtkinter import *
 import pygame
 import time, os
 from tkinter import messagebox
+set_appearance_mode("System")  # Modes: system (default), light, dark
+set_default_color_theme("blue")
 def grp(relative_path):
     try:
         # PyInstaller creates a temp folder and stores path in _MEIPASS
@@ -54,7 +56,7 @@ def update_period():
     scoreboard.periodDigit= scoreboard.periodDigit.zoom(25) #with 250, I ended up running out of memory
     scoreboard.periodDigit = scoreboard.periodDigit.subsample(32)
     scoreboard.img10.config(image=scoreboard.periodDigit)
-    periodControl.config(text=str(scoreboard.period))
+    periodControl.configure(text=str(scoreboard.period))
     controlpanel.update_idletasks()
     scoreboard.update_idletasks()
 def update_score():
@@ -132,19 +134,19 @@ def update_clock(self):
     self.img3.config(image=scoreboard.clockDigit4)
     if scoreboard.seconds<10 and scoreboard.minutes>0:
             if scoreboard.minutes<10:
-                    clockLabel.config(text='  '+str(scoreboard.minutes)+':0'+str(scoreboard.seconds))
+                    clockLabel.configure(text='  '+str(scoreboard.minutes)+':0'+str(scoreboard.seconds))
             else:
-                    clockLabel.config(text=str(scoreboard.minutes)+':0'+str(scoreboard.seconds))
+                    clockLabel.configure(text=str(scoreboard.minutes)+':0'+str(scoreboard.seconds))
     elif scoreboard.minutes==0:
             if scoreboard.seconds<10:
-                    clockLabel.config(text='  '+str(scoreboard.seconds)+'.'+str(scoreboard.tenths)+'  ')
+                    clockLabel.configure(text='  '+str(scoreboard.seconds)+'.'+str(scoreboard.tenths)+'  ')
             else:
-                    clockLabel.config(text=str(scoreboard.seconds)+'.'+str(scoreboard.tenths)+'  ')
+                    clockLabel.configure(text=str(scoreboard.seconds)+'.'+str(scoreboard.tenths)+'  ')
     else:
             if scoreboard.minutes<10:
-                    clockLabel.config(text='  '+str(scoreboard.minutes)+':'+str(scoreboard.seconds))
+                    clockLabel.configure(text='  '+str(scoreboard.minutes)+':'+str(scoreboard.seconds))
             else:
-                    clockLabel.config(text=str(scoreboard.minutes)+':'+str(scoreboard.seconds))
+                    clockLabel.configure(text=str(scoreboard.minutes)+':'+str(scoreboard.seconds))
     scoreboard.update_idletasks()
 scoreboard.title('Display Screen-Scorely Compact ©sserver')
 setseconds=StringVar()
@@ -159,8 +161,8 @@ guestNameLabel=Label(scoreboard, text="GUEST", background='black', foreground='o
 guestNameLabel.place(x=1000, y=320)
 guestPossLabel=Label(scoreboard, text=">>>", background='black', foreground='#190000')
 guestPossLabel.grid(column=6, row=1)
-homePossLabel.config(font=('Segoe UI', 75))
-guestPossLabel.config(font=('Segoe UI', 75))
+homePossLabel.configure(font=('Segoe UI', 75))
+guestPossLabel.configure(font=('Segoe UI', 75))
 scoreboard.autoHorn=True
 periodNameLabel=Label(scoreboard, text='PERIOD', font=('Century Gothic', 75), background='black', foreground='white')
 periodNameLabel.grid(column=3, row=2)
@@ -180,11 +182,11 @@ pygame.mixer.init()
 channel=pygame.mixer.find_channel()
 scoreboard.fast=False
 scoreboard.clockState=False
-homeNameLabel.config(font=('Century Gothic', 75))
-guestNameLabel.config(font=('Century Gothic', 75))
+homeNameLabel.configure(font=('Century Gothic', 75))
+guestNameLabel.configure(font=('Century Gothic', 75))
 scoreboard.homeName='HOME'
 scoreboard.guestName='GUEST'
-controlpanel=Tk()
+controlpanel=CTk()
 controlpanel.title('Control Panel-Scorely Compact ©sserver')
 def buzzer():
     sound=pygame.mixer.Sound(grp('Buzzer.wav'))
@@ -221,7 +223,7 @@ def start_time():
                 scoreboard.img1.config(image=scoreboard.clockDigit2)
                 scoreboard.img2.config(image=scoreboard.clockDigit3)
                 scoreboard.img3.config(image=scoreboard.clockDigit4)
-                clockLabel.config(text='  0.0  ')
+                clockLabel.configure(text='  0.0  ')
                 scoreboard.update_idletasks()
                 scoreboard.clockState=False
                 if scoreboard.autoHorn:
@@ -236,44 +238,44 @@ def increase_home_score():
         if scoreboard.homeScore>199:
             scoreboard.homeScore=199
         if scoreboard.homeScore<10:
-            homeLabel.config(text='    '+str(scoreboard.homeScore))
+            homeLabel.configure(text='    '+str(scoreboard.homeScore))
         elif scoreboard.homeScore<100:
-            homeLabel.config(text='  '+str(scoreboard.homeScore))
+            homeLabel.configure(text='  '+str(scoreboard.homeScore))
         else:
-            homeLabel.config(text=str(scoreboard.homeScore))
+            homeLabel.configure(text=str(scoreboard.homeScore))
         update_score()
         scoreboard.update_idletasks()
 def decrease_home_score():
         if scoreboard.homeScore>0:
             scoreboard.homeScore-=1
         if scoreboard.homeScore<10:
-            homeLabel.config(text='    '+str(scoreboard.homeScore))
+            homeLabel.configure(text='    '+str(scoreboard.homeScore))
         elif scoreboard.homeScore<100:
-            homeLabel.config(text='  '+str(scoreboard.homeScore))
+            homeLabel.configure(text='  '+str(scoreboard.homeScore))
         else:
-            homeLabel.config(text=str(scoreboard.homeScore))
+            homeLabel.configure(text=str(scoreboard.homeScore))
         update_score()
         scoreboard.update_idletasks()
 def decrease_guest_score():
         if scoreboard.guestScore>0:
             scoreboard.guestScore-=1
         if scoreboard.guestScore<10:
-            guestLabel.config(text='    '+str(scoreboard.guestScore))
+            guestLabel.configure(text='    '+str(scoreboard.guestScore))
         elif scoreboard.guestScore<100:
-            guestLabel.config(text='  '+str(scoreboard.guestScore))
+            guestLabel.configure(text='  '+str(scoreboard.guestScore))
         else:
-            guestLabel.config(text=str(scoreboard.guestScore))
+            guestLabel.configure(text=str(scoreboard.guestScore))
         update_score()
         scoreboard.update_idletasks()
 def increase_guest_score():
         if scoreboard.guestScore<199:
             scoreboard.guestScore+=1
         if scoreboard.guestScore<10:
-            guestLabel.config(text='    '+str(scoreboard.guestScore))
+            guestLabel.configure(text='    '+str(scoreboard.guestScore))
         elif scoreboard.guestScore<100:
-            guestLabel.config(text='  '+str(scoreboard.guestScore))
+            guestLabel.configure(text='  '+str(scoreboard.guestScore))
         else:
-            guestLabel.config(text=str(scoreboard.guestScore))
+            guestLabel.configure(text=str(scoreboard.guestScore))
         update_score()
         scoreboard.update_idletasks()
 def decrease_period():
@@ -296,9 +298,9 @@ controlpanel.settingHomeName=False
 controlpanel.settingGuestName=False
 def set_time():
         if controlpanel.settingTime==False and (not scoreboard.clockState):
-            minuteEntry.config(state=NORMAL)
-            secondEntry.config(state=NORMAL)
-            setTimeButton.config(text='Confirm Time')
+            minuteEntry.configure(state=NORMAL)
+            secondEntry.configure(state=NORMAL)
+            setTimeButton.configure(text='Confirm Time')
             controlpanel.settingTime=True
         else:
             try:
@@ -308,10 +310,10 @@ def set_time():
                     scoreboard.minutes=int(minuteEntry.get())
                     scoreboard.seconds=int(secondEntry.get())
                     scoreboard.tenths=0
-                    setTimeButton.config(text='Set Time')
+                    setTimeButton.configure(text='Set Time')
                     controlpanel.settingTime=False
-                    minuteEntry.config(state=DISABLED)
-                    secondEntry.config(state=DISABLED)
+                    minuteEntry.configure(state=DISABLED)
+                    secondEntry.configure(state=DISABLED)
                     update_clock(scoreboard)
             except ValueError:
                 messagebox.showerror('Error', 'Value(s) are invalid', parent=controlpanel)
@@ -370,36 +372,36 @@ def change_poss_to_guest():
         guestPossLabel.config(foreground='#190000')
 def set_home_name():
     if not controlpanel.settingHomeName:
-        homeChangeNameButton.config(text='Confirm Name')
+        homeChangeNameButton.configure(text='Confirm Name')
         controlpanel.settingHomeName=True
-        homeNameEntry.config(state=NORMAL)
+        homeNameEntry.configure(state=NORMAL)
     else:
         if len(homeNameEntry.get())<9:
             if homeNameEntry.get()=='':
                 scoreboard.homeName='HOME'
             else:
                 scoreboard.homeName=homeNameEntry.get()
-            homeNameLabel.config(text=scoreboard.homeName.upper())
+            homeNameLabel.configure(text=scoreboard.homeName.upper())
             controlpanel.settingHomeName=False
-            homeChangeNameButton.config(text='Set Name')
-            homeNameEntry.config(state=DISABLED)
+            homeChangeNameButton.configure(text='Set Name')
+            homeNameEntry.configure(state=DISABLED)
         else:
             messagebox.showinfo('Cannot Set Name', 'The name you entered must be 8 characters or less.', icon='error', parent=controlpanel)
 def set_guest_name():
     if not controlpanel.settingGuestName:
-        guestChangeNameButton.config(text='Confirm Name')
+        guestChangeNameButton.configure(text='Confirm Name')
         controlpanel.settingGuestName=True
-        guestNameEntry.config(state=NORMAL)
+        guestNameEntry.configure(state=NORMAL)
     else:
         if len(guestNameEntry.get())<9:
             if guestNameEntry.get()=='':
                 scoreboard.guestName='GUEST'
             else:
                 scoreboard.guestName=guestNameEntry.get()
-            guestNameLabel.config(text=scoreboard.guestName.upper())
+            guestNameLabel.configure(text=scoreboard.guestName.upper())
             controlpanel.settingGuestName=False
-            guestChangeNameButton.config(text='Set Name')
-            guestNameEntry.config(state=DISABLED)
+            guestChangeNameButton.configure(text='Set Name')
+            guestNameEntry.configure(state=DISABLED)
         else:
             messagebox.showinfo('Cannot Set Name', 'The name you entered must be 8 characters or less.', icon='error', parent=controlpanel)
 def new_game():
@@ -409,9 +411,9 @@ def new_game():
         MsgBox = messagebox.askquestion('Reset Scoreboard','Are you sure you want to reset the scoreboard?', parent=controlpanel, icon = 'warning')
         if MsgBox=='yes':
             reset()
-            homeLabel.config(text='    0')
-            guestLabel.config(text='    0')
-            periodControl.config(text='1')
+            homeLabel.configure(text='    0')
+            guestLabel.configure(text='    0')
+            periodControl.configure(text='1')
             scoreboard.poss=0
             scoreboard.homeScore=0
             scoreboard.guestScore=0
@@ -419,60 +421,60 @@ def new_game():
             update_score()
             update_period()
 controlpanel.grid()
-clockLabel=Label(controlpanel, text='20:00', background='black', foreground='orange')
+clockLabel=CTkLabel(controlpanel, text='20:00', fg_color=('black','black'), text_color=('orange','orange'))
 clockLabel.grid(column=2, row=1)
-minuteEntry=Spinbox(controlpanel, from_=0, to=99, textvariable=setminutes, state=DISABLED)
+minuteEntry=CTkEntry(controlpanel, placeholder_text='Minutes', textvariable=setminutes, state=DISABLED)
 minuteEntry.grid(column=2, row=2)
-secondEntry=Spinbox(controlpanel, from_=0, to=59, textvariable=setseconds, state=DISABLED)
+secondEntry=CTkEntry(controlpanel, placeholder_text='Seconds', textvariable=setseconds, state=DISABLED)
 secondEntry.grid(column=2, row=3)
-setTimeButton=Button(controlpanel, text='Set Time', command=set_time, state=NORMAL)
+setTimeButton=CTkButton(controlpanel, text='Set Time', command=set_time, state=NORMAL)
 setTimeButton.grid(column=2, row=4)
-startStopButton=Button(controlpanel, text='Start/Stop', command=start_stop)
+startStopButton=CTkButton(controlpanel, text='Start/Stop', command=start_stop)
 startStopButton.grid(column=2, row=5)
-resetButton=Button(controlpanel, text='Reset', command=reset)
+resetButton=CTkButton(controlpanel, text='Reset', command=reset)
 resetButton.grid(column=2, row=6)
-homeLabel=Label(controlpanel, text='    0', background='black', foreground='orange')
+homeLabel=CTkLabel(controlpanel, text='    0', fg_color=('black','black'), text_color=('orange','orange'))
 homeLabel.grid(column=1, row=1)
-homeNameEntry=Entry(controlpanel, state=DISABLED)
+homeNameEntry=CTkEntry(controlpanel, state=DISABLED)
 homeNameEntry.grid(column=1, row=4)
-homeChangeNameButton=Button(controlpanel, text='Set Home Name', command=set_home_name)
+homeChangeNameButton=CTkButton(controlpanel, text='Set Name', command=set_home_name)
 homeChangeNameButton.grid(column=1, row=5)
-homeScore1=Button(controlpanel, text='Score +1', command=increase_home_score)
+homeScore1=CTkButton(controlpanel, text='Score +1', command=increase_home_score)
 homeScore1.grid(column=1, row=2)
-homeScore2=Button(controlpanel, text='Score -1', command=decrease_home_score)
+homeScore2=CTkButton(controlpanel, text='Score -1', command=decrease_home_score)
 homeScore2.grid(column=1, row=3)
-homePossButton=Button(controlpanel, text='←Poss', command=change_poss_to_home)
+homePossButton=CTkButton(controlpanel, text='←Poss', command=change_poss_to_home)
 homePossButton.grid(column=1, row=6)
-guestLabel=Label(controlpanel, text='    0', background='black', foreground='orange')
+guestLabel=CTkLabel(controlpanel, text='    0', fg_color=('black','black'), text_color=('orange','orange'))
 guestLabel.grid(column=3, row=1)
-guestNameEntry=Entry(controlpanel, state=DISABLED)
+guestNameEntry=CTkEntry(controlpanel, state=DISABLED)
 guestNameEntry.grid(column=3, row=4)
-guestChangeNameButton=Button(controlpanel, text='Set Guest Name', command=set_guest_name)
+guestChangeNameButton=CTkButton(controlpanel, text='Set Name', command=set_guest_name)
 guestChangeNameButton.grid(column=3, row=5)
-guestScore1=Button(controlpanel, text='Score +1', command=increase_guest_score)
+guestScore1=CTkButton(controlpanel, text='Score +1', command=increase_guest_score)
 guestScore1.grid(column=3, row=2)
-guestScore2=Button(controlpanel, text='Score -1', command=decrease_guest_score)
+guestScore2=CTkButton(controlpanel, text='Score -1', command=decrease_guest_score)
 guestScore2.grid(column=3, row=3)
-guestPossButton=Button(controlpanel, text='Poss→', command=change_poss_to_guest)
+guestPossButton=CTkButton(controlpanel, text='Poss→', command=change_poss_to_guest)
 guestPossButton.grid(column=3, row=6)
-periodControl=Label(controlpanel, text='1', background='black', foreground='orange')
+periodControl=CTkLabel(controlpanel, text='1', fg_color=('black','black'), text_color=('orange','orange'))
 periodControl.grid(column=2, row=7)
-periodButton1=Button(controlpanel, text='Previous Period', command=decrease_period)
+periodButton1=CTkButton(controlpanel, text='Previous Period', command=decrease_period)
 periodButton1.grid(column=2, row=8)
-periodButton2=Button(controlpanel, text='Next Period', command=increase_period)
+periodButton2=CTkButton(controlpanel, text='Next Period', command=increase_period)
 periodButton2.grid(column=2, row=9)
-buzzerButton=Button(controlpanel, text='Buzzer')
+buzzerButton=CTkButton(controlpanel, text='Buzzer')
 buzzerButton.grid(column=2, row=13)
-homeTeamLabel=Label(controlpanel, text='HOME', foreground='#00ff00')
+homeTeamLabel=CTkLabel(controlpanel, text='HOME', text_color=('#00ff00', '#00ff00'))
 homeTeamLabel.grid(column=1, row=9)
-homeTeamLabel=Label(controlpanel, text='GUEST', foreground='red')
+homeTeamLabel=CTkLabel(controlpanel, text='GUEST', text_color=('red', 'red'))
 homeTeamLabel.grid(column=3, row=9)
 buzzerButton.bind('<ButtonPress-1>', start_buzzer_loop)
 buzzerButton.bind('<ButtonRelease-1>', stop_buzzer_loop)
 setminutes.set('20')
 setseconds.set('0')
 scoreboard.minutes=20
-newGameButton=Button(controlpanel, text='Reset Scoreboard', command=new_game)
+newGameButton=CTkButton(controlpanel, text='Reset Scoreboard', command=new_game)
 newGameButton.grid(column=1, row=13)
 try:
     scoreboard.iconbitmap(grp('shotclock.ico'))
@@ -480,4 +482,4 @@ try:
 except:
     messagebox.showinfo('Icon Error', 'App icon photo is missing or corrupt', parent=controlpanel, icon='error')
 controlpanel.update_idletasks()
-scoreboard.mainloop()
+controlpanel.mainloop()
